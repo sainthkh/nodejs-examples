@@ -1,3 +1,12 @@
+/* length
+	write
+	toString()
+	slice(start, end)
+	buf.toJSON
+	Buffer.concat([buf1, buf2])
+	buf.compare(buf2)
+	buf.copy(buf2) -> result is not buffer, it's number. 
+*/
 var buf1 = new Buffer(128)
 var len = buf1.write("Hello, world")
 console.log('written length: ' + len)
