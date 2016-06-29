@@ -8,6 +8,7 @@ http.createServer(function (req, res) {
 console.log('Server running at http://127.0.0.1:1337/');
 
 /*
+Execute: node debug script.js
 Commands
 
 debugger - stop there.
