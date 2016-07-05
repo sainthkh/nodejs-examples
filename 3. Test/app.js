@@ -110,3 +110,47 @@ describe('Test#expect.js', function(){
 		//expect().fail("Custom failure message")
 	})
 })
+
+function add(a, b) {
+	return a + b
+}
+
+describe('Mocha', function(){
+	before('before', function(){ //<- you can add name to before
+
+	})
+
+	after(function name(){ //<- name is shown in the test
+
+	})
+
+	beforeEach(function(done){
+		done() //<- async hook
+	})
+
+	afterEach(function(){
+
+	})
+
+	it('async function', function(done){
+		// do anything you want
+		done();
+	})
+
+	var tests = [
+		{a:1, b:2, r:3},
+		{a:5, b:12, r:17},
+		{a:6, b:-1, r:5},
+	]
+
+	tests.forEach(function(test){
+		it('adds ' + test.a + ', ' + test.b + ' correctly', function() {
+			expect(add(test.a, test.b)).to.be.equal(test.r)
+		})
+	})
+})
+
+// describe.only or it.only => it will run only the test with only. more than 2 only will result in unexpected result. 
+// describe.skip or it.skip => don't run the tests
+// this.retries(4) -> number of retries
+// setTimeout(done, 500) -> test time out. 
