@@ -1,0 +1,161 @@
+doctype html
+
+h1 Attributes
+
+//- basics
+a(href='google.com') Google
+a(class='button', href='google.com') Google
+
+//- code
+- var authenticated = true
+body(class=authenticated ? 'authed' : 'anon')
+input(
+  type='checkbox'
+  name='agreement'
+  checked
+)
+div(escaped="<code>")
+div(unescaped!="<code>") 
+
+//- checkbox
+input(type='checkbox', checked)
+input(type='checkbox', checked=true)
+input(type='checkbox', checked=false)
+input(type='checkbox', checked=true && 'checked')
+
+a(style={color: 'red', background: 'green'}) Link Start
+
+//- handling classes
+- var classes = ['foo', 'bar', 'baz']
+a(class=classes) Class Links
+//- the class attribute may also be repeated to merge arrays
+a.bing(class=classes class=['bing']) bing link
+
+- var currentUrl = '/about'
+a(class={active: currentUrl === '/'} href='/') Home
+a(class={active: currentUrl === '/about'} href='/about') About
+
+//- literal
+a.button
+
+div#foo(data-bar="foo")&attributes({'data-foo': 'bar'})
+
+h1 Case
+
+- var friends = 10
+case friends
+  when 0
+  when 1
+    p you have few friend
+  default
+    p you have #{friends} friends
+
+h1 Code
+
+ol
+  - for (var x = 0; x < 3; x++)
+    li item
+
+-
+  list = ["Uno", "Dos", "Tres",
+          "Cuatro", "Cinco", "Seis"]
+ol
+each item in list
+  li= item
+
+h1 Comments
+//just some paragraphs => shown in HTML
+//- not shown in HTML
+p foo
+p bar
+
+p
+  //
+    As much text as you want
+    can go here.
+
+h1 Conditional
+
+- var user = { description: 'foo bar baz' }
+- var authorised = false
+#user
+  if user.description
+    h2 Description
+    p.description= user.description
+  else if authorised
+    h2 Description
+    p.description.
+      User has no description,
+      why not add one...
+  else
+    h1 Description
+    p.description User has no description
+
+h1 Extends and Includes
+//- extends ./layout.jade to extend files
+//- include ./includes/head.jade
+//- include:markdown ./path/to/the/file -> includes filtered texts
+
+h1 Block
+block testBlock
+//- add block in the child to replace content
+//- prepend/append to add content
+
+h1 Interpolation(value)
+- var test = "hi test"
+h2= test
+p This is #{test}. And it is risky !{test}.
+p Tag: #[a(href="www.google.com") Google]
+
+h1 Iteration
+ul
+  each val in [1, 2, 3, 4, 5]
+    li= val
+ul
+  each val, index in ['zero', 'one', 'two']
+    li= index + ': ' + val
+ul
+  each val, index in {1:'one',2:'two',3:'three'}
+    li= index + ': ' + val
+- var values = [];
+ul
+  each val in values.length ? values : ['There are no values']
+    li= val
+- var n = 0
+ul
+  while n < 4
+    li= n++
+
+h1 Mixin
+//- Declaration
+mixin list
+  ul
+    li foo
+    li bar
+    li baz
+//- Use
++list
++list
+
+mixin pet(name)
+  li.pet= name
+ul
+  +pet('cat')
+  +pet('dog')
+  +pet('pig')
+
+mixin link(href, name)
+  //- attributes == {class: "btn"}
+  a(class!=attributes.class, href=href)= name
+
++link('/foo', 'foo')(class="btn")
+
+mixin list(id, ...items)
+  ul(id=id)
+    each item in items
+      li= item
+
++list('my-list', 1, 2, 3, 4)
+
+b1 Block Expansion
+a: img
